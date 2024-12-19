@@ -1,5 +1,5 @@
 # Ex.08 Design of Interactive Image Gallery
-## Date:12.12.2024
+## Date:11-12-2024
 
 ## AIM:
 To design a web application for an inteactive image gallery with minimum five images.
@@ -25,215 +25,185 @@ Validate the HTML and CSS code.
 Publish the website in the given URL.
 
 ## PROGRAM :
-
-### HTML
 ```
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Image Gallery</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #9d4877d8;
+        }
+
+        h1 {
+            margin: 20px 0;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            max-width: 1200px;
+        }
+
+        .gallery img {
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 3px solid transparent;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery img:hover, .gallery img:active {
+            transform: scale(1.2);
+            border-color: #007BFF;
+            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal img {
+            width: 90%;
+            height: auto;
+            max-width: 1000px;
+            max-height: 80%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal .close:hover {
+            color: #ff4757;
+        }
+
+        .modal .caption {
+            color: white;
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer a {
+            color: #007BFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #ff4757;
+        }
+    </style>
 </head>
 <body>
+    <h1>Interactive Photo Gallery</h1>
+    <div class="gallery">
+        <img src="1.webp" alt="Photo 1" data-caption="JESUS">
+        <img src="2.webp" alt="Photo 2" data-caption="Prince of Peace">
+        <img src="3.webp" alt="Photo 3" data-caption="Lamb of God">
+        <img src="4.webp" alt="Photo 4" data-caption="Messiah ">
+        <img src="5.webp" alt="Photo 5" data-caption="son of god">
+    </div>
 
-  <!-- Gallery Heading -->
-  <h1 class="gallery-heading">Interactive Image Gallery</h1>
+    <div class="modal" id="photoModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img src="" alt="" id="modalImg">
+        <div class="caption" id="modalCaption"></div>
+    </div>
 
-  <!-- Image Gallery -->
-  <div class="gallery">
-    <div class="gallery-item">
-      <img src="six.jpg" alt="Image 1" class="gallery-img">
-      <div class="image-name">Juice</div> <!-- Name for Image 1 -->
-    </div>
-    <div class="gallery-item">
-      <img src="seven.jpg" alt="Image 2" class="gallery-img">
-      <div class="image-name">Coffee</div> <!-- Name for Image 2 -->
-    </div>
-    <div class="gallery-item">
-      <img src="three.jpg" alt="Image 3" class="gallery-img">
-      <div class="image-name">Honey</div> <!-- Name for Image 3 -->
-    </div>
-    <div class="gallery-item">
-      <img src="four.jpg" alt="Image 4" class="gallery-img">
-      <div class="image-name">Puppy</div> <!-- Name for Image 4 -->
-    </div>
-    <div class="gallery-item">
-      <img src="five.jpg" alt="Image 5" class="gallery-img">
-      <div class="image-name">Forest</div> <!-- Name for Image 5 -->
-    </div>
-    <div class="gallery-item">
-      <img src="one.jpg" alt="Image 6" class="gallery-img">
-      <div class="image-name">French</div> <!-- Name for Image 6 -->
-    </div>
-    <div class="gallery-item">
-      <img src="amaran.jpg" alt="Image 7" class="gallery-img">
-      <div class="image-name">Army</div> <!-- Name for Image 7 -->
-    </div>
-    <div class="gallery-item">
-      <img src="dog.jpeg" alt="Image 8" class="gallery-img">
-      <div class="image-name">Dog</div> <!-- Name for Image 8 -->
-    </div>
-    <div class="gallery-item">
-      <img src="ten.jpg" alt="Image 9" class="gallery-img">
-      <div class="image-name">Monument</div> <!-- Name for Image 9 -->
-    </div>
-    <div class="gallery-item">
-      <img src="ok.jpg" alt="Image 10" class="gallery-img">
-      <div class="image-name">Black coffee</div> <!-- Name for Image 10 -->
-    </div>
-  </div>
+    <footer>
+        <p>&copy; 2024 Interactive Photo Gallery. Designed with ❤️ by <a href="#">Manikandan M</a>.</p>
+    </footer>
 
-  <!-- Modal for Enlarged Image -->
-  <div id="modal" class="modal">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <img id="modal-img" src="" alt="Enlarged Image">
-  </div>
+    <script>
+        // Select elements
+        const gallery = document.querySelector('.gallery');
+        const modal = document.getElementById('photoModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        const closeModal = document.getElementById('closeModal');
 
-  <script src="script.js"></script>
+        // Open modal on photo click
+        gallery.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                modal.style.display = 'flex';
+                modalImg.src = e.target.src;
+                modalCaption.textContent = e.target.getAttribute('data-caption');
+            }
+        });
+
+        // Close modal on close button click
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
+
+
 ```
-
-### CSS
-```
-CSS
-
-/* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    text-align: center;
-}
-
-.gallery-heading {
-    margin: 20px 0;
-    font-size: 2.5em;
-    color: #333;
-}
-
-/* Gallery Container */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    padding: 20px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* Gallery Item Styles */
-.gallery-item {
-    position: relative;
-    overflow: hidden; /* Ensure the text doesn't overflow outside the image */
-}
-
-.gallery-img {
-    width: 100%;
-    height: 200px; /* Fixed height */
-    object-fit: cover; /* Ensure images cover the area without stretching */
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.gallery-img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Image Name Styles */
-.image-name {
-    position: absolute;
-    bottom: 10px; /* Position the text near the bottom */
-    left: 50%;
-    transform: translateX(-50%); /* Center the text horizontally */
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    padding: 5px 10px;
-    border-radius: 5px;
-    opacity: 0; /* Start with hidden text */
-    transition: opacity 0.3s ease; /* Smooth fade-in effect */
-}
-
-.gallery-item:hover .image-name {
-    opacity: 1; /* Show the text when hovering */
-}
-
-/* Modal Styles */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal img {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain; /* Ensure the modal image fits within the screen without distortion */
-}
-
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-```
-
-### JS
-```
-JS
-const galleryImages = document.querySelectorAll('.gallery-img');
-
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modal-img');
-
-function openModal(event) {
-    modalImg.src = event.target.src;
-
-    modal.style.display = 'flex';
-}
-
-function closeModal() {
-    modal.style.display = 'none';
-}
-
-galleryImages.forEach(image => {
-    image.addEventListener('click', openModal);
-});
-
-const closeButton = document.querySelector('.close-btn');
-closeButton.addEventListener('click', closeModal);
-
-modal.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        closeModal();
-    }
-});
-```
-
 ## OUTPUT:
-
-![image](https://github.com/user-attachments/assets/b1db83ea-1ac6-4d68-b7f6-354c6f8bc349)
-
+![alt text](<Screenshot (73).png>)
+![alt text](<Screenshot (74).png>)
+![alt text](<Screenshot (75).png>)
+![alt text](<Screenshot (76).png>)
+![alt text](<Screenshot (77).png>)
 
 ## RESULT:
 The program for designing an interactive image gallery using HTML, CSS and JavaScript is executed successfully.
