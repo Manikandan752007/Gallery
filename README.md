@@ -1,209 +1,140 @@
 # Ex.08 Design of Interactive Image Gallery
-## Date:11-12-2024
+# Date: 14-11-2024
 
-## AIM:
-To design a web application for an inteactive image gallery with minimum five images.
+## AIM
+  To design a web application for an inteactive image gallery with minimum five images.
 
-## DESIGN STEPS:
+## DESIGN STEPS
 
-### Step 1:
-Clone the github repository and create Django admin interface.
+## Step 1:
 
-### Step 2:
+Clone the github repository and create Django admin interface
+
+## Step 2:
+
 Change settings.py file to allow request from all hosts.
 
-### Step 3:
+## Step 3:
+
 Use CSS for positioning and styling.
 
-### Step 4:
-Write JavaScript program for implementing interactivity.
+## Step 4:
 
-### Step 5:
-Validate the HTML and CSS code.
+Write JavaScript program for implementing interactivit
 
-### Step 6:
+## Step 5:
+
+Validate the HTML and CSS code
+
+## Step 6:
+
 Publish the website in the given URL.
 
-## PROGRAM :
+## PROGRAM
 ```
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Photo Gallery</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #9d4877d8;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Image Gallery</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 0;
+}
 
-        h1 {
-            margin: 20px 0;
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 20px;
+  justify-content: center;
+}
 
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            max-width: 1200px;
-        }
+.gallery-item {
+  width: 200px;
+  height: auto;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: transform 0.2s;
+}
 
-        .gallery img {
-            width: 180px;
-            height: 120px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 3px solid transparent;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-        }
+.gallery-item:hover {
+  transform: scale(1.05);
+}
 
-        .gallery img:hover, .gallery img:active {
-            transform: scale(1.2);
-            border-color: #007BFF;
-            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.4);
-        }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+}
 
-        .modal img {
-            width: 90%;
-            height: auto;
-            max-width: 1000px;
-            max-height: 80%;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
-            transition: transform 0.3s ease-in-out;
-        }
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
 
-        .modal img:hover {
-            transform: scale(1.05);
-        }
+  </style>
+  <script>
+    function openModal(image) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  
+  modal.style.display = "flex";
+  modalImg.src = image.src;
+}
 
-        .modal .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 32px;
-            color: white;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
+function closeModal() {
+  const modal = document.getElementById('imageModal');
+  modal.style.display = "none";
+}
 
-        .modal .close:hover {
-            color: #ff4757;
-        }
-
-        .modal .caption {
-            color: white;
-            margin-top: 20px;
-            font-size: 18px;
-            text-align: center;
-            max-width: 80%;
-        }
-
-        footer {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            text-align: center;
-            width: 100%;
-        }
-
-        footer a {
-            color: #007BFF;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        footer a:hover {
-            color: #ff4757;
-        }
-    </style>
+  </script>
 </head>
 <body>
-    <h1>Interactive Photo Gallery</h1>
-    <div class="gallery">
-        <img src="1.webp" alt="Photo 1" data-caption="JESUS">
-        <img src="2.webp" alt="Photo 2" data-caption="Prince of Peace">
-        <img src="3.webp" alt="Photo 3" data-caption="Lamb of God">
-        <img src="4.webp" alt="Photo 4" data-caption="Messiah ">
-        <img src="5.webp" alt="Photo 5" data-caption="son of god">
-    </div>
+  <div class="gallery">
+    <img src="image1.jpg" alt="Image 1" class="gallery-item" onclick="openModal(this)">
+    <img src="image2.jpeg" alt="Image 2" class="gallery-item" onclick="openModal(this)">
+    <img src="image3.jpeg" alt="Image 3" class="gallery-item" onclick="openModal(this)">
+    <img src="image4.jpeg" alt="Image 4" class="gallery-item" onclick="openModal(this)">
+    <img src="image5.jpg" alt="Image 5" class="gallery-item" onclick="openModal(this)">
 
-    <div class="modal" id="photoModal">
-        <span class="close" id="closeModal">&times;</span>
-        <img src="" alt="" id="modalImg">
-        <div class="caption" id="modalCaption"></div>
-    </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2024 Interactive Photo Gallery. Designed with ❤️ by <a href="#">Manikandan M</a>.</p>
-    </footer>
+  <!-- Modal -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
 
-    <script>
-        // Select elements
-        const gallery = document.querySelector('.gallery');
-        const modal = document.getElementById('photoModal');
-        const modalImg = document.getElementById('modalImg');
-        const modalCaption = document.getElementById('modalCaption');
-        const closeModal = document.getElementById('closeModal');
-
-        // Open modal on photo click
-        gallery.addEventListener('click', (e) => {
-            if (e.target.tagName === 'IMG') {
-                modal.style.display = 'flex';
-                modalImg.src = e.target.src;
-                modalCaption.textContent = e.target.getAttribute('data-caption');
-            }
-        });
-
-        // Close modal on close button click
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        // Close modal on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
 
-
 ```
-## OUTPUT:
-![alt text](<Screenshot (73).png>)
-![alt text](<Screenshot (74).png>)
-![alt text](<Screenshot (75).png>)
-![alt text](<Screenshot (76).png>)
-![alt text](<Screenshot (77).png>)
+## OUTPUT
+![Screenshot 2024-11-14 224520](https://github.com/user-attachments/assets/df672402-5f15-42e1-abae-6152008dc871)
 
-## RESULT:
-The program for designing an interactive image gallery using HTML, CSS and JavaScript is executed successfully.
+![Screenshot 2024-11-14 224531](https://github.com/user-attachments/assets/8957a58b-14b7-4391-b867-ca813ba92444)
+
+## RESULT
+  The program for designing an interactive image gallery using HTML, CSS and JavaScript is executed successfully.
